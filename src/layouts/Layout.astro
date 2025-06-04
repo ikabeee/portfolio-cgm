@@ -1,5 +1,8 @@
 ---
 import { Font } from "astro:assets";
+import "../styles/global.css";
+import Navbar from "./Navbar.astro";
+import Footer from "./Footer.astro";
 ---
 
 <!doctype html>
@@ -12,17 +15,12 @@ import { Font } from "astro:assets";
     <Font cssVariable="--font-poppins" preload />
     <title>Portafolio</title>
   </head>
-  <body>
-    <slot/>
+
+  <body class="min-h-screen flex flex-col">
+    <Navbar />
+    <main class="flex-grow overflow-auto">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
-<style is:global>
-  @import "tailwindcss";
-  :root{
-    --global-primary: #363C49;
-  }
-  body {
-    font-family: var(--font-poppins);
-    color: var(--global-primary);
-  }
-</style>
