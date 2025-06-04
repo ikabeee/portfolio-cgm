@@ -1,15 +1,28 @@
+---
+import { Font } from "astro:assets";
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <Font cssVariable="--font-poppins" preload />
+    <title>Portafolio</title>
+  </head>
+  <body>
+    <slot/>
+  </body>
 </html>
-<style>
+<style is:global>
+  @import "tailwindcss";
+  :root{
+    --global-primary: #363C49;
+  }
+  body {
+    font-family: var(--font-poppins);
+    color: var(--global-primary);
+  }
 </style>
