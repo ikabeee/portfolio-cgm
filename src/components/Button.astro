@@ -1,7 +1,7 @@
 ---
-const {img} = Astro.props
+const {title} = Astro.props
 ---
 
-<a class="bg-[#61AFEF]">
-
+<a {...Astro.props} download={title} target="_blank" class="flex flex-row justify-center items-center rounded-2xl gap-x-2 py-2 font-extrabold text-white text-lg bg-[#61AFEF] hover:scale-95 transition-transform duration-700 ease-in-out">
+    <slot/>
 </a>
