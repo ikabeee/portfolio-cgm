@@ -1,10 +1,2 @@
-@import "tailwindcss";
+  @import "tailwindcss";
 
-:root {
-  --global-primary: #363C49;
-}
-
-body {
-  font-family: var(--font-poppins);
-  color: var(--global-primary);
-}
