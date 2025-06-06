@@ -1,8 +1,107 @@
 ---
+/* Imports */
+import Button from "./Button.astro";
+import Download from "./icons/general/Download.astro";
+import GitHub from "./icons/social-media/GitHub.astro";
+import Instagram from "./icons/social-media/Instagram.astro";
+import Linkedin from "./icons/social-media/Linkedin.astro";
+import Threads from "./icons/social-media/Threads.astro";
+import Tiktok from "./icons/social-media/Tiktok.astro";
+import Youtube from "./icons/social-media/Youtube.astro";
+/* Imports */
 
+const metadata = {
+  alt: "Foto de Carlos Gonzalez",
+  src: "/imgs/me.jpg",
+};
+
+const socialMedia = [
+  {
+    name: "GitHub",
+    url: "https://github.com/ikabeee",
+    icon: GitHub,
+  },
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/ikabeeee/",
+    icon: Instagram,
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/carlglzm/",
+    icon: Linkedin,
+  },
+  {
+    name: "TikTok",
+    url: "https://www.tiktok.com/@ik4beee",
+    icon: Tiktok,
+  },
+  {
+    name: "YouTube",
+    url: "https://www.youtube.com/@ikabeee",
+    icon: Youtube,
+  },
+  {
+    name: "Threads",
+    url: "https://www.threads.com/@ikabeeee",
+    icon: Threads,
+  },
+];
 ---
-<div>
-    <h1 class="text-5xl font-bold text-[#ABB2BF]">¡Hola, soy <span class="text-[#569CDE]">Carlos Gonzalez!</span></h1>
-    <h2 class="text-4xl font-semibold text-[#ABB2BF]">Desarrollador Fullstack</h2>
-    <p class="font-medium text-[#ABB2BF]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut condimentum dolor. Nam non nisl nunc. Duis sagittis facilisis sem, ac ornare nisi eleifend sed. Etiam in pharetra nulla, vitae tristique risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla facilisi. Praesent elementum sit amet enim sed eleifend.</p>
+<div class="flex flex-row items-center justify-between gap-x-28 w-full">
+  <!-- Hero -->
+  <div class="gap-y-5 flex flex-col w-full">
+    <h1 class="text-5xl font-bold text-[#ABB2BF]">
+      ¡Hola, soy <span class="text-[#569CDE]">Carlos Gonzalez!</span>
+    </h1>
+    <h2 class="text-4xl font-semibold text-[#ABB2BF]">
+      Desarrollador Fullstack
+    </h2>
+    <p class="font-medium text-[#ABB2BF]">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut
+      condimentum dolor. Nam non nisl nunc. Duis sagittis facilisis sem, ac
+      ornare nisi eleifend sed. Etiam in pharetra nulla, vitae tristique risus.
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+      inceptos himenaeos. Nulla facilisi. Praesent elementum sit amet enim sed
+      eleifend.
+    </p>
+    <!-- Download Button -->
+    <div class="mt-0.5 w-md">
+      <Button href="cv/cvITCarlosESP.pdf" title="cv-carlos-gonzalez">
+        ¡Descarga mi CV!
+        <Download class="size-5 fill-white" />
+      </Button>
+    </div>
+    <!-- Social Media -->
+    <div class="flex flex-row gap-x-6 items-center">
+      {
+        socialMedia.map((item) => (
+          <a
+            href={item.url}
+            target="_blank"
+            class="hover:scale-110 transition-transform duration-700 ease-in-out"
+            title={item.name}>
+            <item.icon class="size-10" />
+          </a>
+        ))
+      }
+    </div>
+    <!-- Social Media -->
+  </div>
+  <!-- Hero -->
+
+  <!-- Img with solid shadow-->
+  <div class="min-w-96 aspect-square flex relative hover:scale-105 transition-transform duration-500 ease-in-out">
+    <img
+      src={metadata.src}
+      alt={metadata.alt}
+      class="rounded-[15px] min-w-96 object-cover object-bottom relative z-10" 
+    />
+    <!-- Shadow -->
+    <div
+      class="bg-[#21252B] min-w-96 aspect-square rounded-[15px] absolute top-15 left-15 z-0"
+    >
+    </div>
+  </div>
+  <!-- Img with solid shadow-->
 </div>
