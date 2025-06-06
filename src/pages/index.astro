@@ -1,12 +1,29 @@
 ---
+import Contact from "../components/Contact.astro";
+import GabePhrase from "../components/GabePhrase.astro";
 import Hero from "../components/Hero.astro";
-import Linkedin from "../components/icons/social-media/Linkedin.astro";
+import Projects from "../components/Projects.astro";
 import SectionContainer from "../components/SectionContainer.astro";
+import Skills from "../components/Skills.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Portafolio - Carlos Gonzalez">
-  <SectionContainer class="flex flex-row">
-    <Hero />
-  </SectionContainer>
+  <main class="px-4 space-y-24">
+    <SectionContainer class="py-2">
+      <Hero />
+    </SectionContainer>
+    <SectionContainer class="py-8">
+      <GabePhrase />
+    </SectionContainer>
+    <SectionContainer class="py-8">
+      <Skills />
+    </SectionContainer>
+    <SectionContainer class="py-8">
+      <Projects />
+    </SectionContainer>
+    <SectionContainer class="py-8">
+      <Contact />
+    </SectionContainer>
+  </main>
 </Layout>
