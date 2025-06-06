@@ -1,8 +1,8 @@
 ---
 import { Font } from "astro:assets";
+import Header from "../components/Header.astro";
 import "../styles/global.css";
-import Navbar from "../components/Navbar.astro";
-import Footer from "../components/Footer.astro";
+const {title } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,14 +13,25 @@ import Footer from "../components/Footer.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <Font cssVariable="--font-poppins" preload />
-    <title>Portafolio</title>
+    <title>{title}</title>
   </head>
 
-  <body class="min-h-screen flex flex-col">
-    <Navbar />
-    <main class="flex-grow overflow-auto">
-      <slot />
-    </main>
-    <Footer />
+  <body class="bg-[#282C34]">
+    <Header />
+    <slot />
   </body>
 </html>
+<style is:global>
+  :root {
+    --global-primary: #363c49;
+  }
+
+  body {
+    font-family: var(--font-poppins);
+    color: var(--global-primary);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overscroll-behavior: none;
+  }
+</style>
