@@ -6,22 +6,78 @@ const navItems = [
   {href: "/contact", label: "Contacto"},
 ]
 ---
-<header class="border-[#363C49] bg-[#282C34] top-0 w-full mb-16 ">
+<header class="border-[#363C49] bg-[#282C34] fixed top-0 w-full z-50">
   <!-- Navbar -->
-  <nav class="flex max-w-screen-xl justify-between items-center mx-auto p-4">
-    <a href="/"><span class="text-[#ABB2BF] text-2xl font-[600]">Carlos Gonzalez</span></a>
-      <ul class="flex flex-row text-[#ABB2BF] gap-x-[40px]">
-        <!-- NavbarItems -->
+  <nav class="flex max-w-screen-xl justify-between items-center mx-auto p-3 md:p-4">
+    <a href="/"><span class="text-[#ABB2BF] text-xl md:text-2xl font-[600]">Carlos Gonzalez</span></a>
+
+    <!-- Mobile menu button -->    
+    <button id="mobile-menu-button" class="lg:hidden text-[#ABB2BF] p-2 transition-colors duration-200 hover:text-[#569CDE]" aria-label="Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16" />
+      </svg>
+    </button>
+
+    <!-- Desktop menu -->
+    <ul class="hidden lg:flex flex-row text-[#ABB2BF] gap-x-[40px]">
       {navItems.map((item)=>(
         <li class="relative w-max group">
-          <a href={item.href}>{item.label}</a>
-          <span
-            class="absolute -bottom-1 left-0 w-0 transition-all h-0.5 bg-[#ABB2BF] group-hover:w-full"
-          ></span>
+          <a href={item.href} class="transition-colors duration-200 hover:text-[#569CDE]">{item.label}</a>
+          <span class="absolute -bottom-1 left-0 w-0 transition-all h-0.5 bg-[#569CDE] group-hover:w-full"></span>
         </li>
       ))}
-      </ul>
+    </ul>
+
+    <!-- Mobile menu -->    
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-[#282C34] bg-opacity-95 backdrop-blur-sm z-50 lg:hidden transition-opacity duration-300">
+      <div class="flex flex-col h-full">
+        <div class="flex justify-between items-center p-4">
+          <a href="/"><span class="text-[#ABB2BF] text-xl md:text-2xl font-[600]">Carlos Gonzalez</span></a>
+          <button id="mobile-menu-close" class="text-[#ABB2BF] p-2 transition-colors duration-200 hover:text-[#569CDE]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <ul class="flex flex-col items-center text-[#ABB2BF] gap-y-8 mt-12">
+          {navItems.map((item)=>(
+            <li class="relative w-max group">
+              <a href={item.href} class="text-lg transition-colors duration-200 hover:text-[#569CDE]">{item.label}</a>
+              <span class="absolute -bottom-1 left-0 w-0 transition-all h-0.5 bg-[#569CDE] group-hover:w-full"></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   </nav>
   <!-- Divider -->
   <div class="h-[1px] w-full bg-[#363C49]"></div>
 </header>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('hidden');
+    mobileMenu?.classList.add('opacity-100');
+    document.body.style.overflow = 'hidden';
+  });
+
+  mobileMenuClose?.addEventListener('click', () => {
+    mobileMenu?.classList.add('hidden');
+    mobileMenu?.classList.remove('opacity-100');
+    document.body.style.overflow = '';
+  });
+
+  // Close menu when clicking on a link
+  const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
+  mobileMenuLinks?.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      mobileMenu?.classList.remove('opacity-100');
+      document.body.style.overflow = '';
+    });
+  });
+</script>
