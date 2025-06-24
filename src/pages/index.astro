@@ -9,24 +9,23 @@ import Skills from "../components/Skills.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Portafolio - Carlos Gonzalez">
-  <main class="px-4 space-y-24">
-    <SectionContainer class="py-2">
+<Layout title="Portafolio - Carlos Gonzalez">  <main class="px-4 space-y-24">
+    <SectionContainer id="about-me" class="py-2">
       <Hero />
     </SectionContainer>
     <SectionContainer class="py-8">
       <GabePhrase />
     </SectionContainer>
-    <SectionContainer class="py-8">
+    <SectionContainer id="skills" class="py-8">
       <Skills />
     </SectionContainer>
-    <SectionContainer class="py-8">
+    <SectionContainer id="experience" class="py-8">
       <Experience />
     </SectionContainer>
-    <SectionContainer class="py-8">
+    <SectionContainer id="projects" class="py-8">
       <Projects />
     </SectionContainer>
-    <SectionContainer class="py-8">
+    <SectionContainer id="contact" class="py-8">
       <Contact />
     </SectionContainer>
   </main>

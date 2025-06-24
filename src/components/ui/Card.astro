@@ -1,0 +1,23 @@
+---
+interface Props {
+  tag?: string
+  class?: string
+  [key: string]: any
+}
+
+const { 
+  tag: Tag = 'section',
+  class: className,
+  ...props
+} = Astro.props
+---
+
+<Tag 
+  class:list={[
+    'rounded-xl bg-[#21252B] border border-[#363C49] p-6',
+    className
+  ]}
+  {...props}
+>
+  <slot/>
+</Tag>

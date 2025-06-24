@@ -1,25 +1,61 @@
 ---
 import Code from "./icons/general/Code.astro"
+import Card from "./ui/Card.astro"
+import Carousel from "./ui/Carousel.astro"
+import { projects } from "../config/projects"
 ---
 
-<section class="flex flex-col gap-8">  <h2 class="text-3xl font-semibold flex items-center gap-x-3 text-[#ABB2BF]">
+<section class="flex flex-col gap-8">
+  <h2 class="text-3xl font-semibold flex items-center gap-x-3 text-[#ABB2BF]">
     <Code class="size-8" />
     Proyectos
   </h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <article class="rounded-xl bg-[#21252B] border border-[#363C49] p-6 flex flex-col">
-      <h3 class="text-2xl font-semibold text-[#ABB2BF] mb-2">Explore Your University</h3>
-      <p class="text-lg text-pretty text-[#ABB2BF]/70 grow">
-        Plataforma educativa que permite a los estudiantes explorar y descubrir nuevas oportunidades en su universidad.
-      </p>
-      <footer class="flex gap-x-4 mt-4">
-        <span class="bg-[#282C34] border border-[#363C49] rounded px-3 py-1 text-[#ABB2BF]">React</span>
-        <span class="bg-[#282C34] border border-[#363C49] rounded px-3 py-1 text-[#ABB2BF]">TailwindCSS</span>
-        <span class="bg-[#282C34] border border-[#363C49] rounded px-3 py-1 text-[#ABB2BF]">Node.js</span>
-      </footer>
-    </article>
+    {projects.map((project, index) => (
+      <Card>
+        <Carousel images={project.images} carouselIndex={index} />
+        
+        <div class="mt-4">
+          <h3 class="text-2xl font-semibold text-[#ABB2BF] mb-2">{project.title}</h3>
+          <p class="text-lg text-pretty text-[#ABB2BF]/70 grow">
+            {project.description}
+          </p>
+        </div>
 
-    <!-- Placeholder para más proyectos -->
+        <footer class="flex flex-wrap gap-3 mt-4">
+          {project.technologies.map(tech => (
+            <span class="bg-[#282C34] border border-[#363C49] rounded px-3 py-1 text-[#ABB2BF]">
+              {tech}
+            </span>
+          ))}
+        </footer>
+
+        {(project.link || project.github) && (
+          <div class="flex gap-4 mt-6">
+            {project.link && (
+              <a 
+                href={project.link} 
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-4 py-2 bg-[#61AFEF] text-white rounded-lg hover:bg-[#4B8BBF] transition-colors"
+              >
+                Ver demo
+              </a>
+            )}
+            {project.github && (
+              <a 
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-4 py-2 border border-[#61AFEF] text-[#61AFEF] rounded-lg hover:bg-[#61AFEF] hover:text-white transition-colors"
+              >
+                Ver código
+              </a>
+            )}
+          </div>
+        )}
+      </Card>
+    ))}
   </div>
 </section>

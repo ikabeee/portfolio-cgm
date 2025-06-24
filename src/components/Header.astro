@@ -1,83 +1,145 @@
 ---
-const navItems = [
-  {href: "/about-me", label: "Acerca de mí"},
-  {href: "/skills", label: "Habilidades"},
-  {href: "/projects", label: "Proyectos"},
-  {href: "/contact", label: "Contacto"},
-]
+import Navigation from './ui/Navigation.astro'
+import { languages, navItems } from '../config/navigation'
 ---
 <header class="border-[#363C49] bg-[#282C34] fixed top-0 w-full z-50">
-  <!-- Navbar -->
   <nav class="flex max-w-screen-xl justify-between items-center mx-auto p-3 md:p-4">
-    <a href="/"><span class="text-[#ABB2BF] text-xl md:text-2xl font-[600]">Carlos Gonzalez</span></a>
+    <a href="/">
+      <span class="text-[#ABB2BF] text-xl md:text-2xl font-[600]">Carlos Gonzalez</span>
+    </a>
 
     <!-- Mobile menu button -->    
-    <button id="mobile-menu-button" class="lg:hidden text-[#ABB2BF] p-2 transition-colors duration-200 hover:text-[#569CDE]" aria-label="Menu">
+    <button 
+      id="mobile-menu-button" 
+      class="lg:hidden text-[#ABB2BF] p-2 transition-colors duration-200 hover:text-[#569CDE]" 
+      aria-label="Menu"
+    >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16" />
       </svg>
     </button>
 
     <!-- Desktop menu -->
-    <ul class="hidden lg:flex flex-row text-[#ABB2BF] gap-x-[40px]">
-      {navItems.map((item)=>(
-        <li class="relative w-max group">
-          <a href={item.href} class="transition-colors duration-200 hover:text-[#569CDE]">{item.label}</a>
-          <span class="absolute -bottom-1 left-0 w-0 transition-all h-0.5 bg-[#569CDE] group-hover:w-full"></span>
-        </li>
-      ))}
-    </ul>
+    <div class="hidden lg:flex items-center gap-x-[40px]">
+      <Navigation items={navItems} />
+
+      <div class="relative group">
+        <button 
+          id="language-selector" 
+          class="flex items-center gap-2 text-[#ABB2BF] hover:text-[#569CDE] transition-colors"
+        >
+          <span>ES</span>
+          <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <div 
+          id="language-dropdown" 
+          class="hidden absolute right-0 mt-2 bg-[#21252B] border border-[#363C49] rounded-lg py-1 w-32"
+        >
+          {languages.map((lang) => (
+            <button
+              class="w-full text-left px-4 py-2 text-[#ABB2BF] hover:text-[#569CDE] hover:bg-[#282C34] transition-colors"
+              data-lang={lang.code}
+            >
+              {lang.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
 
     <!-- Mobile menu -->    
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-[#282C34] bg-opacity-95 backdrop-blur-sm z-50 lg:hidden transition-opacity duration-300">
+    <div 
+      id="mobile-menu" 
+      class="hidden fixed inset-0 bg-[#282C34] bg-opacity-95 backdrop-blur-sm z-50 lg:hidden transition-opacity duration-300"
+    >
       <div class="flex flex-col h-full">
         <div class="flex justify-between items-center p-4">
-          <a href="/"><span class="text-[#ABB2BF] text-xl md:text-2xl font-[600]">Carlos Gonzalez</span></a>
-          <button id="mobile-menu-close" class="text-[#ABB2BF] p-2 transition-colors duration-200 hover:text-[#569CDE]">
+          <a href="/">
+            <span class="text-[#ABB2BF] text-xl md:text-2xl font-[600]">Carlos Gonzalez</span>
+          </a>
+
+          <button 
+            id="mobile-menu-close" 
+            class="text-[#ABB2BF] p-2 transition-colors duration-200 hover:text-[#569CDE]"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
-        <ul class="flex flex-col items-center text-[#ABB2BF] gap-y-8 mt-12">
-          {navItems.map((item)=>(
-            <li class="relative w-max group">
-              <a href={item.href} class="text-lg transition-colors duration-200 hover:text-[#569CDE]">{item.label}</a>
-              <span class="absolute -bottom-1 left-0 w-0 transition-all h-0.5 bg-[#569CDE] group-hover:w-full"></span>
-            </li>
-          ))}
-        </ul>
+
+        <Navigation items={navItems} mobile />
       </div>
     </div>
   </nav>
+
   <!-- Divider -->
   <div class="h-[1px] w-full bg-[#363C49]"></div>
 </header>
 
 <script>
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenuClose = document.getElementById('mobile-menu-close');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuButton = document.getElementById('mobile-menu-button')
+  const mobileMenuClose = document.getElementById('mobile-menu-close')
+  const mobileMenu = document.getElementById('mobile-menu')
+  const languageSelector = document.getElementById('language-selector')
+  const languageDropdown = document.getElementById('language-dropdown')
 
-  mobileMenuButton?.addEventListener('click', () => {
-    mobileMenu?.classList.remove('hidden');
-    mobileMenu?.classList.add('opacity-100');
-    document.body.style.overflow = 'hidden';
-  });
+  // Mobile menu
+  const toggleMobileMenu = (show: boolean) => {
+    if (show) {
+      mobileMenu?.classList.remove('hidden')
+      mobileMenu?.classList.add('opacity-100')
+      document.body.style.overflow = 'hidden'
+    } else {
+      mobileMenu?.classList.add('hidden')
+      mobileMenu?.classList.remove('opacity-100')
+      document.body.style.overflow = ''
+    }
+  }
 
-  mobileMenuClose?.addEventListener('click', () => {
-    mobileMenu?.classList.add('hidden');
-    mobileMenu?.classList.remove('opacity-100');
-    document.body.style.overflow = '';
-  });
+  mobileMenuButton?.addEventListener('click', () => toggleMobileMenu(true))
+  mobileMenuClose?.addEventListener('click', () => toggleMobileMenu(false))
 
   // Close menu when clicking on a link
-  const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
+  const mobileMenuLinks = mobileMenu?.querySelectorAll('a')
   mobileMenuLinks?.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
-      mobileMenu?.classList.remove('opacity-100');
-      document.body.style.overflow = '';
-    });
-  });
+    link.addEventListener('click', () => toggleMobileMenu(false))
+  })
+
+  // Language selector
+  const toggleLanguageDropdown = (show: boolean) => {
+    if (show) {
+      languageDropdown?.classList.remove('hidden')
+    } else {
+      languageDropdown?.classList.add('hidden')
+    }
+  }
+
+  languageSelector?.addEventListener('click', () => {
+    const isHidden = languageDropdown?.classList.contains('hidden')
+    toggleLanguageDropdown(isHidden)
+  })
+
+  // Close language dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!languageSelector?.contains(e.target as Node)) {
+      toggleLanguageDropdown(false)
+    }
+  })
+
+  // Handle language selection
+  const languageButtons = languageDropdown?.querySelectorAll('button')
+  languageButtons?.forEach(button => {
+    button.addEventListener('click', () => {
+      const lang = button.dataset.lang
+      if (lang) {
+        // Here you would handle the language change
+        console.log(`Changing language to: ${lang}`)
+      }
+      toggleLanguageDropdown(false)
+    })
+  })
 </script>

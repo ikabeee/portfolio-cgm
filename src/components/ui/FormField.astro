@@ -1,0 +1,45 @@
+---
+interface Props {
+  label: string
+  name: string
+  type?: 'text' | 'email' | 'textarea'
+  required?: boolean
+  placeholder?: string
+  rows?: number
+}
+
+const {
+  label,
+  name,
+  type = 'text',
+  required = false,
+  placeholder = '',
+  rows = 4
+} = Astro.props
+---
+
+<div class="flex flex-col gap-2">
+  <label class="text-[#ABB2BF]" for={name}>
+    {label} {required && <span class="text-red-500">*</span>}
+  </label>
+  
+  {type === 'textarea' ? (
+    <textarea
+      id={name}
+      name={name}
+      required={required}
+      placeholder={placeholder}
+      rows={rows}
+      class="rounded-lg bg-[#21252B] p-3 border border-[#363C49] focus:border-[#569CDE] focus:outline-none text-[#ABB2BF] resize-none"
+    />
+  ) : (
+    <input
+      type={type}
+      id={name}
+      name={name}
+      required={required}
+      placeholder={placeholder}
+      class="rounded-lg bg-[#21252B] p-3 border border-[#363C49] focus:border-[#569CDE] focus:outline-none text-[#ABB2BF]"
+    />
+  )}
+</div>

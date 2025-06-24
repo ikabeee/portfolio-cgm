@@ -1,0 +1,94 @@
+---
+interface Props {
+  images: Array<{ src: string; alt: string }>
+  carouselIndex: number
+}
+
+const { images, carouselIndex } = Astro.props
+---
+
+<div class="relative">
+  <div class="carousel-container flex transition-transform duration-500">
+    {images.map(image => (
+      <img src={image.src} alt={image.alt} class="w-full h-48 object-cover shrink-0" />
+    ))}
+  </div>
+  <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2">
+    {images.map((_, index) => (
+      <button
+        class:list={[
+          'w-2 h-2 rounded-full bg-[#569CDE] transition-opacity',
+          index === 0 ? 'opacity-100' : 'opacity-50 hover:opacity-100'
+        ]}
+        data-carousel={carouselIndex}
+        data-index={index}
+      />
+    ))}
+  </div>
+</div>
+
+<script>
+  // This script will run for each Carousel component instance
+  class Carousel {
+    container: HTMLElement
+    slides: HTMLElement[]
+    dots: HTMLElement[]
+    currentSlide: number = 0
+    interval: number
+
+    constructor(container: HTMLElement, index: number) {
+      this.container = container
+      this.slides = Array.from(container.children) as HTMLElement[]
+      this.dots = Array.from(document.querySelectorAll(`[data-carousel="${index}"]`))
+      this.setupCarousel()
+    }
+
+    setupCarousel() {
+      // Set up dot click handlers
+      this.dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => this.goToSlide(index))
+      })
+
+      // Auto-advance slides every 5 seconds
+      this.interval = setInterval(() => {
+        this.nextSlide()
+      }, 5000)
+
+      // Pause auto-advance on hover
+      this.container.addEventListener('mouseenter', () => {
+        clearInterval(this.interval)
+      })
+
+      // Resume auto-advance when mouse leaves
+      this.container.addEventListener('mouseleave', () => {
+        this.interval = setInterval(() => {
+          this.nextSlide()
+        }, 5000)
+      })
+    }
+
+    goToSlide(index: number) {
+      this.currentSlide = index
+      const offset = this.currentSlide * -100
+      this.container.style.transform = `translateX(${offset}%)`
+      this.updateDots()
+    }
+
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.slides.length
+      this.goToSlide(this.currentSlide)
+    }
+
+    updateDots() {
+      this.dots.forEach((dot, index) => {
+        dot.style.opacity = index === this.currentSlide ? '1' : '0.5'
+      })
+    }
+  }
+
+  // Initialize all carousels in the page
+  const carouselContainers = document.querySelectorAll('.carousel-container')
+  carouselContainers.forEach((container, index) => {
+    new Carousel(container as HTMLElement, index)
+  })
+</script>

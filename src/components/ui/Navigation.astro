@@ -1,0 +1,32 @@
+---
+import type { NavItem } from '../../types'
+
+interface Props {
+  items: NavItem[]
+  mobile?: boolean
+}
+
+const { items, mobile = false } = Astro.props
+---
+
+<ul class:list={[
+  'text-[#ABB2BF]',
+  mobile ? 'flex flex-col items-center gap-y-8 mt-12' : 'flex flex-row gap-x-[40px]'
+]}>
+  {items.map((item) => (
+    <li class="relative w-max group">
+      <a 
+        href={item.href} 
+        class:list={[
+          'transition-colors duration-200 hover:text-[#569CDE]',
+          mobile && 'text-lg'
+        ]}
+      >
+        {item.label}
+      </a>
+      {!mobile && (
+        <span class="absolute -bottom-1 left-0 w-0 transition-all h-0.5 bg-[#569CDE] group-hover:w-full"></span>
+      )}
+    </li>
+  ))}
+</ul>
