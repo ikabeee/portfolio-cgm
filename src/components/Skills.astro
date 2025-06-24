@@ -2,12 +2,15 @@
 import Code from "./icons/general/Code.astro"
 import Card from "./ui/Card.astro"
 import { skillCategories } from "../config/skills"
+import i18next from '../i18n/config'
+
+const t = i18next.t.bind(i18next)
 ---
 
 <section class="flex flex-col gap-8">
   <h2 class="text-3xl font-semibold flex items-center gap-x-3 text-[#ABB2BF]">
     <Code class="size-8" />
-    Habilidades
+    {t('skills.title')}
   </h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -15,7 +18,7 @@ import { skillCategories } from "../config/skills"
       <Card>
         <header class="flex items-center gap-4 mb-4">
           <category.icon class="size-6" />
-          <h3 class="text-xl text-[#ABB2BF]">{category.title}</h3>
+          <h3 class="text-xl text-[#ABB2BF]">{t(category.translateKey)}</h3>
         </header>
         <div class="flex flex-wrap gap-2">
           {category.skills.map(skill => (

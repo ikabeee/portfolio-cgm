@@ -7,9 +7,9 @@ export const languages: Language[] = [
 ]
 
 export const navItems: NavItem[] = [
-  { href: "#about-me", label: "Acerca de mí" },
-  { href: "#skills", label: "Habilidades" },
-  { href: "#experience", label: "Experiencia" },
-  { href: "#projects", label: "Proyectos" },
-  { href: "#contact", label: "Contacto" }
+  { href: "#about", translateKey: "nav.about" },
+  { href: "#skills", translateKey: "nav.skills" },
+  { href: "#experience", translateKey: "nav.experience" },
+  { href: "#projects", translateKey: "nav.projects" },
+  { href: "#contact", translateKey: "nav.contact" }
 ]

@@ -6,7 +6,7 @@ export interface SocialMediaLink {
 
 export interface NavItem {
   href: string
-  label: string
+  translateKey: string
 }
 
 export interface Language {
@@ -20,8 +20,8 @@ export interface ProjectImage {
 }
 
 export interface Project {
-  title: string
-  description: string
+  titleKey: string
+  descriptionKey: string
   images: ProjectImage[]
   technologies: string[]
   link?: string
@@ -29,11 +29,12 @@ export interface Project {
 }
 
 export interface ExperienceItem {
-  title: string
+  role: string
   company: string
-  period: string
+  startDate: string
+  endDate: string
   location: string
-  description: string
+  descriptionKey: string
   technologies: string[]
 }
 

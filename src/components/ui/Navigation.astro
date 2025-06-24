@@ -1,5 +1,6 @@
 ---
 import type { NavItem } from '../../types'
+import i18next from 'i18next';
 
 interface Props {
   items: NavItem[]
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const { items, mobile = false } = Astro.props
+const t = i18next.t.bind(i18next)
 ---
 
 <ul class:list={[
@@ -22,7 +24,7 @@ const { items, mobile = false } = Astro.props
           mobile && 'text-lg'
         ]}
       >
-        {item.label}
+        {t(item.translateKey)}
       </a>
       {!mobile && (
         <span class="absolute -bottom-1 left-0 w-0 transition-all h-0.5 bg-[#569CDE] group-hover:w-full"></span>

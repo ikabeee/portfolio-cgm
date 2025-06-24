@@ -3,11 +3,14 @@ import { Font } from "astro:assets";
 import Header from "../components/Header.astro";
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
+import i18next from "../i18n/config";
+
 const { title } = Astro.props;
+const currentLanguage = i18next.language || 'es';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={currentLanguage}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

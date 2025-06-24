@@ -25,7 +25,7 @@ import Bash from '../components/icons/technologies/Bash.astro'
 
 export const skillCategories = {
   languages: {
-    title: 'Lenguajes',
+    translateKey: 'skills.languages',
     icon: Code,
     skills: [
       { name: 'HTML', icon: HTML },
@@ -34,18 +34,18 @@ export const skillCategories = {
       { name: 'TypeScript', icon: TypeScript },
       { name: 'C#', icon: CSharp }
     ]
-  },
+  }, 
   frontend: {
-    title: 'Frontend',
+    translateKey: 'skills.frontend',
     icon: Code,
     skills: [
       { name: 'Angular', icon: Angular },
       { name: 'React', icon: React },
       { name: 'Tailwind CSS', icon: Tailwind }
     ]
-  },
+  }, 
   backend: {
-    title: 'Backend',
+    translateKey: 'skills.backend',
     icon: Backend,
     skills: [
       { name: 'Express', icon: Express },
@@ -56,9 +56,9 @@ export const skillCategories = {
       { name: 'MySQL', icon: MySQL },
       { name: 'SQL Server', icon: SQLServer }
     ]
-  },
+  }, 
   tools: {
-    title: 'Herramientas',
+    translateKey: 'skills.tools',
     icon: Tools,
     skills: [
       { name: 'Docker', icon: Docker },

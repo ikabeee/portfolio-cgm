@@ -2,15 +2,12 @@ import type { ExperienceItem } from '../types'
 
 export const experiences: ExperienceItem[] = [
   {
-    title: "Backend Developer",
+    role: 'experience.roles.backend',
     company: "Tandem Technologies",
-    period: "2023 - Presente",
+    startDate: "2023",
+    endDate: "present",
     location: "México",
-    description: `
-      Desarrollo y mantenimiento de APIs RESTful usando .NET Core y NestJS.
-      Implementación de arquitecturas limpias y patrones de diseño.
-      Integración con bases de datos SQL Server y PostgreSQL.
-    `,
+    descriptionKey: 'experience.tandem.description',
     technologies: ['.NET', 'NestJS', 'SQL Server', 'PostgreSQL']
   }
   // Add more experiences as needed

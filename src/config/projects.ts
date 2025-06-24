@@ -2,8 +2,8 @@ import type { Project } from '../types'
 
 export const projects: Project[] = [
   {
-    title: 'Explore Your University',
-    description: 'Plataforma educativa que permite a los estudiantes explorar y descubrir nuevas oportunidades en su universidad.',
+    titleKey: 'projects.university.title',
+    descriptionKey: 'projects.university.description',
     images: [
       {
         src: '/project-1-1.jpg',

@@ -2,25 +2,29 @@
 import BackendDev from "./icons/general/BackendDev.astro"
 import Card from "./ui/Card.astro"
 import { experiences } from "../config/experience"
+import i18next from '../i18n/config'
+
+const t = i18next.t.bind(i18next)
 ---
 
 <section class="flex flex-col gap-8">
   <h2 class="text-3xl font-semibold flex items-center gap-x-3 text-[#ABB2BF]">
     <BackendDev class="size-8" />
-    Experiencia Laboral
+    {t('experience.title')}
   </h2>
 
   <div class="flex flex-col gap-8">
     {experiences.map(experience => (
       <Card>
-        <header class="flex flex-col">
-          <h3 class="text-xl font-semibold text-[#ABB2BF]">{experience.title}</h3>
+        <header class="flex flex-col">          <h3 class="text-xl font-semibold text-[#ABB2BF]">{t(experience.role)}</h3>
           <h4 class="text-lg text-[#ABB2BF]/80">{experience.company}</h4>
-          <span class="text-sm text-[#ABB2BF]/70">{experience.period} · {experience.location}</span>
+          <span class="text-sm text-[#ABB2BF]/70">
+            {experience.startDate} - {experience.endDate === 'present' ? t('experience.present') : experience.endDate} · {experience.location}
+          </span>
         </header>
 
         <p class="text-[#ABB2BF]/70 text-pretty mt-3">
-          {experience.description}
+          {t(experience.descriptionKey)}
         </p>
 
         <footer class="flex flex-wrap gap-2 mt-4">

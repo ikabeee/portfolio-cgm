@@ -1,6 +1,19 @@
 ---
 import Navigation from './ui/Navigation.astro'
 import { languages, navItems } from '../config/navigation'
+import Spanish from './icons/languages/Spanish.astro'
+import English from './icons/languages/English.astro'
+import Francais from './icons/languages/Francais.astro'
+
+type LanguageCode = 'es' | 'en' | 'fr';
+
+const languageIcons: Record<LanguageCode, any> = {
+  es: Spanish,
+  en: English,
+  fr: Francais
+}
+
+const currentLanguage = languages[0]
 ---
 <header class="border-[#363C49] bg-[#282C34] fixed top-0 w-full z-50">
   <nav class="flex max-w-screen-xl justify-between items-center mx-auto p-3 md:p-4">
@@ -23,29 +36,34 @@ import { languages, navItems } from '../config/navigation'
     <div class="hidden lg:flex items-center gap-x-[40px]">
       <Navigation items={navItems} />
 
-      <div class="relative group">
-        <button 
+      <div class="relative group">        <button 
           id="language-selector" 
           class="flex items-center gap-2 text-[#ABB2BF] hover:text-[#569CDE] transition-colors"
-        >
-          <span>ES</span>
+        >          <div id="current-language-icon" class="w-5 h-5 flex items-center justify-center">
+            <Spanish />
+          </div>
+          <span id="current-language-code" class="uppercase">es</span>
           <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
           </svg>
-        </button>
-
-        <div 
+        </button>        <div 
           id="language-dropdown" 
-          class="hidden absolute right-0 mt-2 bg-[#21252B] border border-[#363C49] rounded-lg py-1 w-32"
-        >
-          {languages.map((lang) => (
-            <button
-              class="w-full text-left px-4 py-2 text-[#ABB2BF] hover:text-[#569CDE] hover:bg-[#282C34] transition-colors"
-              data-lang={lang.code}
-            >
-              {lang.label}
-            </button>
-          ))}
+          class="hidden absolute right-0 mt-2 bg-[#21252B] border border-[#363C49] rounded-lg py-1 w-40"
+        >          {languages.map((lang) => {
+            const Icon = languageIcons[lang.code as LanguageCode];
+            return (
+              <button
+                class="w-full flex items-center gap-2 px-4 py-2 text-[#ABB2BF] hover:text-[#569CDE] hover:bg-[#282C34] transition-colors"
+                data-lang={lang.code}
+                data-label={lang.label}
+              >
+                <div class="w-5 h-5 flex items-center justify-center">
+                  <Icon />
+                </div>
+                <span>{lang.label}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -128,18 +146,89 @@ import { languages, navItems } from '../config/navigation'
     if (!languageSelector?.contains(e.target as Node)) {
       toggleLanguageDropdown(false)
     }
-  })
+  })  // Load and initialize i18next
+  const loadI18next = async () => {
+    const { default: i18next } = await import('../i18n/config')
+    return i18next
+  }
+
+  // Update the UI with the current language
+  const updateLanguageUI = (lang: string) => {
+    const currentLanguageCode = document.getElementById('current-language-code')
+    const currentLanguageIcon = document.getElementById('current-language-icon')
+    
+    if (currentLanguageCode) {
+      currentLanguageCode.textContent = lang
+    }
+
+    // Actualizar la clase del contenedor del icono para asegurar consistencia
+    if (currentLanguageIcon) {
+      currentLanguageIcon.className = 'w-5 h-5 flex items-center justify-center'
+    }
+  }
+
+  // Initialize language function
+  const initializeLanguage = async () => {
+    const i18next = await loadI18next()
+    // Verificar primero el idioma guardado en localStorage
+    const savedLang = localStorage.getItem('selected-language')
+    const currentLang = savedLang || i18next.language || 'es'
+    
+    // Asegurarse de que i18next y la UI estén sincronizados
+    await i18next.changeLanguage(currentLang)
+    updateLanguageUI(currentLang)
+    
+    // Actualizar el icono basado en el idioma actual
+    const currentLanguageIcon = document.getElementById('current-language-icon')
+    const languageButton = languageDropdown?.querySelector(`button[data-lang="${currentLang}"]`)
+    const selectedIcon = languageButton?.querySelector('div')?.innerHTML
+    
+    if (currentLanguageIcon && selectedIcon) {
+      currentLanguageIcon.innerHTML = selectedIcon
+    }
+  }
 
   // Handle language selection
   const languageButtons = languageDropdown?.querySelectorAll('button')
   languageButtons?.forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async () => {
       const lang = button.dataset.lang
       if (lang) {
-        // Here you would handle the language change
-        console.log(`Changing language to: ${lang}`)
+        const i18next = await loadI18next()
+        
+        // Guardar el idioma en localStorage antes de cambiar
+        localStorage.setItem('selected-language', lang)
+        
+        // Update the UI immediately
+        updateLanguageUI(lang)
+        
+        // Update the icon by cloning the selected button's content
+        const currentLanguageIcon = document.getElementById('current-language-icon')
+        const selectedButtonContent = button.querySelector('div')?.innerHTML
+        
+        if (currentLanguageIcon && selectedButtonContent) {
+          const iconContainer = document.createElement('div')
+          iconContainer.className = 'w-5 h-5 flex items-center justify-center'
+          iconContainer.innerHTML = selectedButtonContent
+          
+          currentLanguageIcon.replaceWith(iconContainer)
+          iconContainer.id = 'current-language-icon'
+        }
+        
+        // Cambiar el idioma y recargar después de un breve delay
+        await i18next.changeLanguage(lang)
+        setTimeout(() => {
+          window.location.reload()
+        }, 250)
       }
       toggleLanguageDropdown(false)
     })
   })
+
+  // Ejecutar la inicialización cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeLanguage)
+  } else {
+    initializeLanguage()
+  }
 </script>
