@@ -1,3 +1,64 @@
 ---
-
+import JoiningQueue from "./icons/general/JoiningQueue.astro"
 ---
+
+<section class="flex flex-col gap-8">  <h2 class="text-3xl font-semibold flex items-center gap-x-3 text-[#ABB2BF]">
+    <JoiningQueue class="size-8" />
+    ¡Colaboremos!
+  </h2>
+
+  <form class="flex flex-col gap-6 max-w-2xl mx-auto w-full">
+    <div class="flex flex-col gap-2">
+      <label class="text-[#ABB2BF]" for="name">
+        Nombre/Empresa <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        placeholder="John Doe"
+        class="rounded-lg bg-[#21252B] p-3 border border-[#363C49] focus:border-[#569CDE] focus:outline-none text-[#ABB2BF]"
+      />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-white/80" for="email">
+        Correo <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        placeholder="example@gmail.com"
+        class="rounded-lg bg-[#1f2937] p-3 border border-white/10 focus:border-white/20 focus:outline-none"
+      />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-white/80" for="message">
+        Mensaje <span class="text-red-500">*</span>
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        required
+        rows="4"
+        placeholder="Déjame un bonito mensaje :)"
+        class="rounded-lg bg-[#1f2937] p-3 border border-white/10 focus:border-white/20 focus:outline-none resize-none"
+      ></textarea>
+    </div>
+
+    <p class="text-sm text-white/60">
+      Los campos marcados con <span class="text-red-500">*</span> son obligatorios
+    </p>
+
+    <button
+      type="submit"
+      class="bg-[#60a5fa] hover:bg-[#3b82f6] transition-colors py-3 rounded-lg text-white font-medium"
+    >
+      Enviar
+    </button>
+  </form>
+</section>

@@ -1,0 +1,68 @@
+---
+import Backend from "./icons/general/Backend.astro"
+import Code from "./icons/general/Code.astro"
+import Tools from "./icons/general/Tools.astro"
+---
+
+<section class="flex flex-col gap-8">  <h2 class="text-3xl font-semibold flex items-center gap-x-3 text-[#ABB2BF]">
+    <Code class="size-8" />
+    Habilidades
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <article class="rounded-xl bg-[#21252B] border border-[#363C49] p-6">
+      <header class="flex items-center gap-4 mb-4">
+        <Code class="size-6" />
+        <h3 class="text-xl text-[#ABB2BF]">Lenguajes</h3>
+      </header>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-[#282C34] border border-[#363C49] rounded px-2 py-1 text-sm text-[#ABB2BF]">HTML</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">CSS</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">JavaScript</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">TypeScript</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">C#</span>
+      </div>
+    </article>
+
+    <article class="rounded-xl bg-[#1f2937] p-6">
+      <header class="flex items-center gap-4 mb-4">
+        <Code class="size-6" />
+        <h3 class="text-xl text-white/90">Frontend</h3>
+      </header>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">Angular</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">React</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">Tailwind CSS</span>
+      </div>
+    </article>
+
+    <article class="rounded-xl bg-[#1f2937] p-6">
+      <header class="flex items-center gap-4 mb-4">
+        <Backend class="size-6" />
+        <h3 class="text-xl text-white/90">Backend</h3>
+      </header>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">Express</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">Node.js</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">NestJS</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">.NET</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">PostgreSQL</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">MySQL</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">SQL Server</span>
+      </div>
+    </article>
+
+    <article class="rounded-xl bg-[#1f2937] p-6">
+      <header class="flex items-center gap-4 mb-4">
+        <Tools class="size-6" />
+        <h3 class="text-xl text-white/90">Herramientas</h3>
+      </header>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">Docker</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">Git</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">Linux</span>
+        <span class="bg-[#374151] rounded px-2 py-1 text-sm">Bash</span>
+      </div>
+    </article>
+  </div>
+</section>

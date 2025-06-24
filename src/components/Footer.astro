@@ -1,2 +1,58 @@
 ---
+const currentYear = new Date().getFullYear()
 ---
+
+<footer class="bg-[#21252B] mt-24 border-t border-[#363C49]">
+  <div class="mx-auto w-full max-w-7xl px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Logo y descripción */}
+      <div class="col-span-1">
+        <h3 class="text-2xl font-bold text-[#ABB2BF] mb-2">Tandem</h3>
+        <p class="text-[#ABB2BF]/70 text-pretty max-w-md">
+          Desarrollador Backend con pasión por crear soluciones eficientes y escalables.
+          Especializado en .NET, NestJS y bases de datos SQL.
+        </p>
+      </div>      {/* Navegación */}
+      <div class="col-span-1">
+        <h4 class="text-[#ABB2BF] font-semibold mb-3">Navegación</h4>
+        <ul class="flex flex-col gap-2">
+          <li><a href="#acerca-de-mi" class="text-[#ABB2BF]/70 hover:text-[#569CDE] transition">Acerca de mí</a></li>
+          <li><a href="#experiencia" class="text-[#ABB2BF]/70 hover:text-[#569CDE] transition">Experiencia</a></li>
+          <li><a href="#proyectos" class="text-[#ABB2BF]/70 hover:text-[#569CDE] transition">Proyectos</a></li>
+          <li><a href="#contacto" class="text-[#ABB2BF]/70 hover:text-[#569CDE] transition">Contacto</a></li>
+        </ul>
+      </div>      {/* Recursos y Contacto */}
+      <div class="col-span-1">
+        <div class="mb-8">
+          <h4 class="text-[#ABB2BF] font-semibold mb-3">Recursos</h4>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a 
+                href="/cv/cvITCarlosEN.pdf" 
+                class="text-[#ABB2BF]/70 hover:text-[#569CDE] transition"
+                download
+              >
+                Descargar CV
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-[#ABB2BF] font-semibold mb-3">Contacto</h4>
+          <address class="not-italic">
+            <p class="text-[#ABB2BF]/70">example@gmail.com</p>
+            <p class="text-[#ABB2BF]/70">Quintana Roo, México</p>
+          </address>
+        </div>
+      </div>
+    </div>
+
+    {/* Copyright */}
+    <div class="border-t border-[#363C49] mt-12 pt-6">
+      <p class="text-center text-[#ABB2BF]/70 text-sm">
+        © {currentYear} Carlos Gonzalez. Todos los derechos reservados.
+      </p>
+    </div>
+  </div>
+</footer>
