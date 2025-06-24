@@ -34,7 +34,7 @@ const { images, carouselIndex } = Astro.props
     slides: HTMLElement[]
     dots: HTMLElement[]
     currentSlide: number = 0
-    interval: number
+    interval!: ReturnType<typeof setInterval>
 
     constructor(container: HTMLElement, index: number) {
       this.container = container

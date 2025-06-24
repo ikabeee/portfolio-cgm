@@ -120,7 +120,7 @@ import { languages, navItems } from '../config/navigation'
 
   languageSelector?.addEventListener('click', () => {
     const isHidden = languageDropdown?.classList.contains('hidden')
-    toggleLanguageDropdown(isHidden)
+    toggleLanguageDropdown(isHidden ?? false)
   })
 
   // Close language dropdown when clicking outside

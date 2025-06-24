@@ -1,13 +1,13 @@
 ---
-import JoiningQueue from "./icons/general/JoiningQueue.astro"
-import Card from "./ui/Card.astro"
-import FormField from "./ui/FormField.astro"
-import Button from "./ui/Button.astro"
+import JoiningQueue from "./icons/general/JoiningQueue.astro";
+import Card from "./ui/Card.astro";
+import FormField from "./ui/FormField.astro";
+import Button from "./ui/Button.astro";
 
 interface ContactInfo {
-  icon: string
-  label: string
-  value: string
+  icon: string;
+  label: string;
+  value: string;
 }
 
 const contactInfo: ContactInfo[] = [
@@ -16,16 +16,16 @@ const contactInfo: ContactInfo[] = [
             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
           </svg>`,
     label: "Ubicación",
-    value: "Quintana Roo, México"
+    value: "Quintana Roo, México",
   },
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-[#569CDE]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9l-9-4L22 2z"/>
           </svg>`,
     label: "Email",
-    value: "example@gmail.com"
-  }
-]
+    value: "example@gmail.com",
+  },
+];
 ---
 
 <section class="flex flex-col gap-8">
@@ -34,44 +34,49 @@ const contactInfo: ContactInfo[] = [
     ¡Colaboremos!
   </h2>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto w-full">
+  <div class="flex flex-col lg:grid-cols-2 gap-8 max-w-7xl mx-auto w-full">
     <Card>
-      <h3 class="text-xl font-semibold text-[#ABB2BF] mb-4">Información de contacto</h3>
+      <h3 class="text-xl font-semibold text-[#ABB2BF] mb-4">
+        Información de contacto
+      </h3>
       <div class="space-y-4">
-        {contactInfo.map(({ icon, label, value }) => (
-          <div class="flex items-center gap-3">
-            <Fragment set:html={icon} />
-            <p class="text-[#ABB2BF]/70">{value}</p>
-          </div>
-        ))}
+        {
+          contactInfo.map(({ icon, label, value }) => (
+            <div class="flex items-center gap-3">
+              <Fragment set:html={icon} />
+              <p class="text-[#ABB2BF]/70">{value}</p>
+            </div>
+          ))
+        }
       </div>
     </Card>
 
     <Card>
-      <form id="contact-form" class="flex flex-col gap-6">
-        <FormField
-          label="Nombre/Empresa"
-          name="name"
-          required
-          placeholder="John Doe"
-        />
+      <form id="contact-form" class="flex flex-col gap-4 space-y-1">
+        <div class="space-y-1">
+          <FormField label="Nombre/Empresa" name="name" placeholder="John Doe" />
+          <p class="text-red-500 text-sm hidden validation-message" data-for="name"></p>
+        </div>
 
-        <FormField
-          label="Correo"
-          name="email"
-          type="email"
-          required
-          placeholder="example@gmail.com"
-        />
+        <div class="space-y-1">
+          <FormField
+            label="Correo"
+            name="email"
+            placeholder="example@gmail.com"
+          />
+          <p class="text-red-500 text-sm hidden validation-message" data-for="email"></p>
+        </div>
 
-        <FormField
-          label="Mensaje"
-          name="message"
-          type="textarea"
-          required
-          placeholder="Déjame un bonito mensaje :)"
-          rows={4}
-        />
+        <div class="space-y-1">
+          <FormField
+            label="Mensaje"
+            name="message"
+            type="textarea"
+            placeholder="Déjame un bonito mensaje :)"
+            rows={4}
+          />
+          <p class="text-red-500 text-sm hidden validation-message" data-for="message"></p>
+        </div>
 
         <p class="text-sm text-[#ABB2BF]/60">
           Los campos marcados con <span class="text-red-500">*</span> son obligatorios
@@ -81,50 +86,79 @@ const contactInfo: ContactInfo[] = [
           <p class="text-[#569CDE]"></p>
         </div>
 
-        <Button type="submit" variant="default" size="lg">
-          Enviar
-        </Button>
+        <Button type="submit" variant="default" size="md"> Enviar </Button>
       </form>
     </Card>
   </div>
 </section>
 
 <script>
-  import { validateContactForm, handleContactSubmit } from '../utils/contactForm'
+  import {
+    validateContactForm,
+    handleContactSubmit,
+  } from "../utils/contactForm";
 
-  const form = document.getElementById('contact-form') as HTMLFormElement
-  const notification = document.getElementById('form-notification')
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const notification = document.getElementById("form-notification");
+  const validationMessages = document.querySelectorAll(".validation-message");
+
+  const clearValidationMessages = () => {
+    validationMessages.forEach((message) => {
+      message.classList.add("hidden");
+      message.textContent = "";
+    });
+  };
+
+  const showFieldError = (fieldName: string, message: string) => {
+    const messageElement = document.querySelector(`[data-for="${fieldName}"]`);
+    if (messageElement) {
+      messageElement.textContent = message;
+      messageElement.classList.remove("hidden");
+    }
+  };
+
+  form?.querySelectorAll("input, textarea").forEach((input) => {
+    input.addEventListener("input", () => {
+      const formData = new FormData(form);
+      const { errors } = validateContactForm(formData);
+      const messageElement = document.querySelector(`[data-for="${(input as HTMLInputElement | HTMLTextAreaElement).name}"]`);
+      if (messageElement) {
+        messageElement.classList.add("hidden");
+        messageElement.textContent = "";
+      }
+    });
+  });
 
   if (form && notification) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault()
-      
-      const formData = new FormData(form)
-      const { isValid, errors } = validateContactForm(formData)
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearValidationMessages();
+
+      const formData = new FormData(form);
+      const { isValid, errors } = validateContactForm(formData);
 
       if (!isValid) {
-        // Show errors
-        notification.classList.remove('hidden')
-        notification.innerHTML = `
-          <ul class="text-red-500">
-            ${Object.values(errors).map(error => `<li>${error}</li>`).join('')}
-          </ul>
-        `
-        return
+        Object.entries(errors).forEach(([field, message]) => {
+          showFieldError(field, message);
+        });
+        return;
       }
 
-      const result = await handleContactSubmit(formData)
-      
-      notification.classList.remove('hidden')
+      const result = await handleContactSubmit(formData);
+
+      notification.classList.remove("hidden");
       notification.innerHTML = `
-        <p class="${result.success ? 'text-green-500' : 'text-red-500'}">
+        <p class="${result.success ? "text-green-500" : "text-red-500"} text-sm">
           ${result.message}
         </p>
-      `
+      `;
 
       if (result.success) {
-        form.reset()
+        form.reset();
+        setTimeout(() => {
+          notification.classList.add("hidden");
+        }, 5000);
       }
-    })
+    });
   }
 </script>

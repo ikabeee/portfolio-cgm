@@ -30,7 +30,8 @@ const {
       required={required}
       placeholder={placeholder}
       rows={rows}
-      class="rounded-lg bg-[#21252B] p-3 border border-[#363C49] focus:border-[#569CDE] focus:outline-none text-[#ABB2BF] resize-none"
+      class="rounded-lg bg-[#21252B] p-2 border border-[#363C49] focus:border-[#569CDE] focus:outline-none text-[#ABB2BF] resize-none"
+      aria-describedby={`${name}-error`}
     />
   ) : (
     <input
@@ -40,6 +41,8 @@ const {
       required={required}
       placeholder={placeholder}
       class="rounded-lg bg-[#21252B] p-3 border border-[#363C49] focus:border-[#569CDE] focus:outline-none text-[#ABB2BF]"
+      aria-describedby={`${name}-error`}
     />
   )}
+  <span id={`${name}-error`} class="text-sm text-red-500 min-h-[20px] transition-all duration-200"></span>
 </div>
